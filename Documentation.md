@@ -7,4 +7,8 @@ LibreSprite originated as a fork of [Aseprite](https://www.aseprite.org/), devel
 This fork was made on the [last commit](https://github.com/aseprite/aseprite/commit/03be4aa23db465219962f4c62410f628e7392545) covered by the GPL version 2 license, and is now developed independently of Aseprite.
 
 ## UI
-The first thing you'll notice is that the UI in LibreSprite is very similar to Aseprite.
+The first thing you'll notice is that the UI in LibreSprite is very similar to Aseprite. Let's go through it:
+
+ - Menu bar:
+
+   The menu bar is a centric part to the app, it houses majority of the features or feature toggles.
