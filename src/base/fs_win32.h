@@ -8,6 +8,7 @@
 #include <windows.h>
 #include <shlobj.h>
 #include <sys/stat.h>
+#include <filesystem>
 
 #include "base/path.h"
 #include "base/string.h"
@@ -45,6 +46,11 @@ void move_file(const std::string& src, const std::string& dst)
   BOOL result = ::MoveFileW(from_utf8(src).c_str(), from_utf8(dst).c_str());
   if (result == 0)
     throw Win32Exception("Error moving file");
+}
+
+void copy_file(const std::string& src, const std::string& dst)
+{
+    std::filesystem::copy_file(src, dst, std::filesystem::copy_options::overwrite_existing);
 }
 
 void delete_file(const std::string& path)
@@ -103,11 +109,7 @@ void remove_directory(const std::string& path)
 
 std::string get_current_path()
 {
-  WCHAR buffer[MAX_PATH+1];
-  if (::GetCurrentDirectoryW(sizeof(buffer)/sizeof(WCHAR), buffer))
-    return to_utf8(buffer);
-  else
-    return "";
+  return std::filesystem::current_path().string();
 }
 
 std::string get_app_path()

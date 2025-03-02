@@ -15,6 +15,7 @@
 #include <ctime>
 #include <stdexcept>
 #include <vector>
+#include <filesystem>
 
 #if __APPLE__
 #include <mach-o/dyld.h>
@@ -69,6 +70,11 @@ void move_file(const std::string& src, const std::string& dst)
     throw std::runtime_error("Error moving file");
 }
 
+void copy_file(const std::string& src, const std::string& dst)
+{
+    std::filesystem::copy_file(src, dst, std::filesystem::copy_options::overwrite_existing);
+}
+
 void delete_file(const std::string& path)
 {
   int result = unlink(path.c_str());
@@ -119,9 +125,7 @@ void remove_directory(const std::string& path)
 
 std::string get_current_path()
 {
-  std::vector<char> path(MAXPATHLEN);
-  getcwd(&path[0], path.size());
-  return std::string(&path[0]);
+  return std::filesystem::current_path().string();
 }
 
 std::string get_app_path()
